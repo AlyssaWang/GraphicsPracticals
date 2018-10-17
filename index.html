@@ -2,42 +2,74 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<title>My first three.js app</title>
+		<title>Cornell Box</title>
 		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			body {
+				margin: 0;
+			}
+			canvas {
+				width: 100%;
+				height: 100%
+			}
 		</style>
 	</head>
 	<body>
-		<script src="js/three.js"></script>
+		<script src="three.js"></script>
+		<script src="planes.js"></script>
+		<script src="cube.js"></script>
+		<script src="sphere.js"></script>
     <script src="js/controls/OrbitControls.js"></script>
-    <script src="js/geometries/BoxGeometry.js"></script>
 		<script>
       // Creating the scene
       var scene = new THREE.Scene();
+
       var camera = new THREE.PerspectiveCamera(
         75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
       var controls = new THREE.OrbitControls(camera);
 
       var renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      // Adding the geometry
-      var geometry = new THREE.BoxGeometry(1, 1, 1);
-      var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-      var cube = new THREE.Mesh(geometry, material);
-      scene.add(cube);
+			// Box planes
+      scene.add(planeLeft);
+      scene.add(planeRight);
+      scene.add(planeTop);
+      scene.add(planeBottom);
+      scene.add(planeBack);
 
-      camera.position.z = 5;
+      // Cube inside Cornell box
+      scene.add(cubeMesh);
+      // scene.add(cubeWireframeMesh); // For testing purposes
+
+      // Sphere inside Cornell box
+      scene.add(sphereMesh);
+  		// scene.add(sphereWireframeMesh); // For testing purposes
+
+      // Light sources
+			var pointLight1 = new THREE.PointLight(0xffffff, .2); // Inside the box
+			pointLight1.position.set(0, 0, 0);
+			scene.add(pointLight1);
+
+			var pointLight2 = new THREE.PointLight(0xffffff, 1); // Top right, back
+			pointLight2.position.set(10, 10, -10);
+			scene.add(pointLight2);
+
+			var pointLight3 = new THREE.PointLight(0xffffff, 1); // Bottom left, front
+			pointLight3.position.set(-10, -10, 10);
+			scene.add(pointLight3);
+
+      camera.position.z = 10;
 
       // Rendering
       function animate() {
       	requestAnimationFrame(animate);
-
-        // Rotating the cube
+				cubeMesh.rotation.x += 0.01;
+				cubeMesh.rotation.y += 0.01;
+				sphereMesh.rotation.x += 0.01;
+				sphereMesh.rotation.y += 0.01;
         controls.update();
-
       	renderer.render(scene, camera);
       }
       animate();
