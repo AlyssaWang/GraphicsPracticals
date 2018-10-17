@@ -32,20 +32,14 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-			// Box planes
+			// Adding geometry
       scene.add(planeLeft);
       scene.add(planeRight);
       scene.add(planeTop);
       scene.add(planeBottom);
       scene.add(planeBack);
-
-      // Cube inside Cornell box
       scene.add(cubeMesh);
-      // scene.add(cubeWireframeMesh); // For testing purposes
-
-      // Sphere inside Cornell box
       scene.add(sphereMesh);
-  		// scene.add(sphereWireframeMesh); // For testing purposes
 
       // Light sources
 			var pointLight1 = new THREE.PointLight(0xffffff, .2); // Inside the box
@@ -60,15 +54,19 @@
 			pointLight3.position.set(-10, -10, 10);
 			scene.add(pointLight3);
 
-      camera.position.z = 5;
+      camera.position.z = 10;
 
       // Rendering
       function animate() {
       	requestAnimationFrame(animate);
 				cubeMesh.rotation.x += 0.01;
 				cubeMesh.rotation.y += 0.01;
+				cubeMesh.rotation.z += 0.01;
+
 				sphereMesh.rotation.x -= 0.01;
 				sphereMesh.rotation.y -= 0.01;
+				sphereMesh.rotation.z -= 0.01;
+
         controls.update();
       	renderer.render(scene, camera);
       }
