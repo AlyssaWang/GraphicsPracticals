@@ -1,6 +1,6 @@
-var length = 10;
-var width = 10;
-var depth = 10;
+var length = 20;
+var width = 20;
+var depth = 20;
 
 var plane = new THREE.PlaneGeometry(length, width, depth);
 
