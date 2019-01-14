@@ -44,9 +44,16 @@
 
       camera.position.z = 15;
 
-			// var right;
-			// var up;
-			// var forward;
+			/* Generating random direction of movement
+			 * If random number is between 0.00-0.49, set to false.
+			 * If random number is between 0.50-1.00, set to true.
+			 */
+			var sphereRight = (Math.random() > 0.5);
+			var sphereUp = (Math.random() > 0.5);
+			var sphereForward = (Math.random() > 0.5);
+			var cubeRight = (Math.random() > 0.5);
+			var cubeUp = (Math.random() > 0.5);
+			var cubeForward = (Math.random() > 0.5);
 
       // Rendering
       function animate() {
@@ -55,33 +62,53 @@
 				cubeMesh.rotation.y += 0.01;
 				cubeMesh.rotation.z += 0.01;
 
-				// if (sphereMesh.position.x < 10) {
-				// 	right = true;
-				// } else if (sphereMesh.position.x > -10) {
-				// 	right = false;
-				// }
-				//
-				// if (sphereMesh.position.y < 10) {
-				// 	up = true;
-				// } else if (sphereMesh.position.y > -10) {
-				// 	up = false;
-				// }
-				//
-				// if (sphereMesh.position.z < 10) {
-				// 	forward = true;
-				// } else if (sphereMesh.position.z > -10) {
-				// 	forward = false;
-				// }
-				//
-				// if (up) {
-				// 	sphereMesh.position.x -= 0.01;
-				// 	sphereMesh.position.y -= 0.01;
-				// 	sphereMesh.position.z -= 0.01;
-				// } else {
-				// 	sphereMesh.position.x += 0.01;
-				// 	sphereMesh.position.y += 0.01;
-				// 	sphereMesh.position.z += 0.01;
-				// }
+				if (sphereRight) {
+					sphereMesh.position.x += 0.05
+					if (sphereMesh.position.x > 7) sphereRight = false;
+				} else {
+					sphereMesh.position.x -= 0.05
+					if (sphereMesh.position.x < -7) sphereRight = true;
+				}
+
+				if (sphereUp) {
+					sphereMesh.position.y += 0.05
+					if (sphereMesh.position.y > 7) sphereUp = false;
+				} else {
+					sphereMesh.position.y -= 0.05
+					if (sphereMesh.position.y < -7) sphereUp = true;
+				}
+
+				if (sphereForward) {
+					sphereMesh.position.z += 0.05
+					if (sphereMesh.position.z > 7) sphereForward = false;
+				} else {
+					sphereMesh.position.z -= 0.05
+					if (sphereMesh.position.z < -7) sphereForward = true;
+				}
+
+				if (cubeRight) {
+					cubeMesh.position.x += 0.05
+					if (cubeMesh.position.x > 7) cubeRight = false;
+				} else {
+					cubeMesh.position.x -= 0.05
+					if (cubeMesh.position.x < -7) cubeRight = true;
+				}
+
+				if (cubeUp) {
+					cubeMesh.position.y += 0.05
+					if (cubeMesh.position.y > 7) cubeUp = false;
+				} else {
+					cubeMesh.position.y -= 0.05
+					if (cubeMesh.position.y < -7) cubeUp = true;
+				}
+
+				if (cubeForward) {
+					cubeMesh.position.z += 0.05
+					if (cubeMesh.position.z > 7) cubeForward = false;
+				} else {
+					cubeMesh.position.z -= 0.05
+					if (cubeMesh.position.z < -7) cubeForward = true;
+				}
 
         controls.update();
       	renderer.render(scene, camera);
